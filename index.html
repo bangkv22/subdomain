@@ -3,235 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps & Tech Hub // Subdomain Portfolio</title>
+    <title>Sự Kiện Công Nghệ Neon Cyberpunk</title>
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- Google Fonts: Fira Code & Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #030712;
-            --terminal-bg: #0f172a;
-            --accent-green: #10b981;
-            --accent-cyan: #06b6d4;
-            --accent-purple: #8b5cf6;
+            --bg-color: #05050a;
+            --neon-pink: #ff007f;
+            --neon-blue: #00f3ff;
+            --neon-purple: #b000ff;
         }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-deep);
-            color: #e2e8f0;
+            background-color: var(--bg-color);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
-            margin: 0;
-            padding: 0;
-        }
-        .code-font {
-            font-family: 'Fira Code', monospace;
-        }
-        /* Hero Section */
-        .hero-terminal {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(3, 7, 18, 0.95)),
-                        radial-gradient(circle at top right, rgba(6, 182, 212, 0.15), transparent 50%),
-                        radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.15), transparent 50%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 100px 0 70px;
-        }
-        .terminal-box {
-            background: var(--terminal-bg);
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            border-radius: 12px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            text-align: left;
-            overflow: hidden;
-        }
-        .terminal-header {
-            background: #1e293b;
-            padding: 10px 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .dot {
-            height: 12px;
-            width: 12px;
-            display: inline-block;
-            border-radius: 50%;
-            margin-right: 6px;
-        }
-        .dot-red { background: #ef4444; }
-        .dot-yellow { background: #f59e0b; }
-        .dot-green { background: #10b981; }
-
-        /* Tech Cards */
-        .tech-card {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
+            min-height: 100vh;
+            cursor: default;
         }
-        .tech-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.3);
+
+        /* Vòng tròn hiệu ứng chạy theo con trỏ chuột (Neon Cursor Follower) */
+        .cursor-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 243, 255, 0.15) 0%, rgba(255, 0, 127, 0.08) 50%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+            z-index: 9999;
+            mix-blend-mode: screen;
         }
-        .tech-card::before {
-            content: '';
+
+        /* Các khối màu nền neon mờ ảo chuyển động */
+        .blob {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            width: 450px;
+            height: 450px;
+            background: linear-gradient(135deg, rgba(255, 0, 127, 0.25), rgba(176, 0, 255, 0.25));
+            filter: blur(100px);
+            border-radius: 50%;
+            z-index: -2;
+            animation: floatBlob 10s infinite alternate ease-in-out;
         }
-        .tech-card:hover::before {
-            opacity: 1;
+        .blob-2 {
+            top: 40%;
+            right: 5%;
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.25), rgba(176, 0, 255, 0.25));
+            animation-duration: 14s;
         }
 
-        /* Buttons */
-        .btn-cyber {
+        @keyframes floatBlob {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(-50px) scale(1.1); }
+        }
+
+        /* Hiệu ứng hạt ánh sáng bay lơ lửng */
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            display: block;
+            width: 6px;
+            height: 6px;
+            background: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            animation: flyUp 12s linear infinite;
+            bottom: -50px;
+            border-radius: 50%;
+        }
+
+        .particle:nth-child(1) { left: 10%; width: 8px; height: 8px; animation-duration: 10s; background: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink); }
+        .particle:nth-child(2) { left: 25%; width: 4px; height: 4px; animation-duration: 15s; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 45%; width: 7px; height: 7px; animation-duration: 8s; animation-delay: 4s; background: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple); }
+        .particle:nth-child(4) { left: 65%; width: 5px; height: 5px; animation-duration: 13s; animation-delay: 1s; }
+        .particle:nth-child(5) { left: 85%; width: 9px; height: 9px; animation-duration: 11s; animation-delay: 3s; background: var(--neon-pink); box-shadow: 0 0 15px var(--neon-pink); }
+
+        @keyframes flyUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-900px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Tiêu đề hiệu ứng Neon sáng rực */
+        .hero-title {
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7),
+                         0 0 20px rgba(0, 243, 255, 0.5),
+                         0 0 40px rgba(0, 243, 255, 0.3);
+        }
+
+        /* Thẻ kính mờ viền Neon (Glassmorphism + Neon Border) */
+        .neon-card {
+            background: rgba(15, 15, 30, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 16px;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .neon-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.4), inset 0 0 15px rgba(255, 0, 127, 0.2);
+        }
+
+        /* Nút bấm hiệu ứng Neon phát sáng */
+        .btn-neon {
             background: transparent;
-            border: 2px solid var(--accent-cyan);
-            color: var(--accent-cyan);
-            font-family: 'Fira Code', monospace;
-            font-weight: 600;
-            padding: 10px 24px;
-            border-radius: 8px;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.6);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3), inset 0 0 15px rgba(0, 243, 255, 0.1);
             transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-cyber:hover {
-            background: var(--accent-cyan);
-            color: var(--bg-deep);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+            border-radius: 50px;
         }
 
-        .btn-glow {
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
-            border: none;
-            color: var(--bg-deep);
-            font-weight: 700;
-            padding: 12px 30px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
-        }
-        .btn-glow:hover {
+        .btn-neon:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 30px var(--neon-blue), 0 0 60px var(--neon-blue);
             transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.6);
-            color: var(--bg-deep);
-        }
-
-        footer {
-            background: #02040a;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: #64748b;
         }
     </style>
 </head>
 <body>
 
-    <!-- Hero Terminal Section -->
-    <header class="hero-terminal text-center">
-        <div class="container">
-            <span class="code-font text-success mb-3 d-inline-block px-3 py-1 rounded bg-success bg-opacity-10 border border-success border-opacity-25">
-                $ system_status: online // subdomain active
-            </span>
-            <h1 class="display-4 fw-bold text-white mb-3">Võ Khánh Băng <span class="text-info">// Portfolio</span></h1>
-            <p class="code-font text-secondary lead mb-4">Backend Developer & Web Systems Architecture</p>
-            
-            <div class="row justify-content-center mb-5">
-                <div class="col-lg-8">
-                    <div class="terminal-box p-3 code-font text-sm">
-                        <div class="terminal-header mb-3">
-                            <span class="dot dot-red"></span>
-                            <span class="dot dot-yellow"></span>
-                            <span class="dot dot-green"></span>
-                            <span class="text-muted ms-2" style="font-size: 0.8rem;">bash - 80x24</span>
-                        </div>
-                        <p class="text-success mb-1">root@subdomain:~$ init-project --framework php-mysql</p>
-                        <p class="text-info mb-1">&gt; Loading REST APIs, PDO connections, and Bootstrap 5 components...</p>
-                        <p class="text-white mb-0">&gt; Deployment successful on GitHub Pages &amp; Custom Subdomain. <span class="animate-pulse">_</span></p>
-                    </div>
-                </div>
-            </div>
+    <!-- Đom đóm/vòng sáng chạy theo con trỏ chuột -->
+    <div class="cursor-glow" id="cursorGlow"></div>
 
-            <div class="d-flex justify-content-center gap-3">
-                <a href="#projects" class="btn btn-glow">
-                    <i class="fa-solid fa-terminal me-2"></i>Xem Dự Án
-                </a>
-                <button class="btn btn-cyber" onclick="triggerAlert()">
-                    <i class="fa-solid fa-bolt me-2"></i>Kiểm Tra Hệ Thống
-                </button>
-            </div>
-        </div>
-    </header>
+    <!-- Các khối hiệu ứng màu nền -->
+    <div class="blob top-0 start-0"></div>
+    <div class="blob blob-2"></div>
 
-    <!-- Interactive Projects Section -->
-    <main class="container py-5" id="projects">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold text-white code-font mb-2">&lt;Modules &amp; Tech Stack&gt;</h2>
-            <p class="text-secondary">Các thành phần cốt lõi được xây dựng trong hệ thống</p>
-        </div>
+    <!-- Hiệu ứng hạt ánh sáng bay -->
+    <ul class="floating-particles">
+        <li class="particle"></li>
+        <li class="particle"></li>
+        <li class="particle"></li>
+        <li class="particle"></li>
+        <li class="particle"></li>
+    </ul>
 
+    <div class="container py-5 text-center mt-5">
+        <span class="badge mb-3 px-4 py-2 rounded-pill text-uppercase" style="background: rgba(255, 0, 127, 0.2); border: 1px solid var(--neon-pink); color: var(--neon-pink); box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);">✨ Giao Diện Neon Cyberpunk ✨</span>
+        <h1 class="hero-title display-3 mb-4">Hệ Thống Sự Kiện Công Nghệ</h1>
+        <p class="lead text-light opacity-75 mb-5 mx-auto" style="max-width: 600px;">
+ di chuyển chuột để trải nghiệm hiệu ứng ánh sáng tương tác, kết hợp các hạt neon bay bổng và giao diện hiện đại cực chất.
+        </p>
+        <a href="#features" class="btn btn-neon btn-lg px-5 py-3">Khám Phá Ngay</a>
+    </div>
+
+    <div id="features" class="container py-5 mt-4">
         <div class="row g-4">
-            <!-- Card 1 -->
             <div class="col-md-4">
-                <div class="tech-card p-4 h-100 d-flex flex-column justify-content-between">
-                    <div>
-                        <div class="text-info fs-1 mb-3"><i class="fa-solid fa-database"></i></div>
-                        <h4 class="fw-bold text-white mb-2">Backend &amp; Database</h4>
-                        <p class="text-secondary small mb-4">Xây dựng RESTful API, quản lý cơ sở dữ liệu MySQL bằng PDO bảo mật, xử lý logic phía server tối ưu.</p>
-                    </div>
-                    <a href="https://github.com/bangkv22" target="_blank" class="btn btn-cyber text-center w-100">
-                        Khám Phá <i class="fa-solid fa-arrow-right ms-2"></i>
-                    </a>
+                <div class="neon-card p-4 h-100 text-center">
+                    <div class="fs-1 mb-3">🖱️</div>
+                    <h4 class="text-info fw-bold" style="text-shadow: 0 0 8px rgba(0,243,255,0.6);">Hiệu Ứng Con Trỏ</h4>
+                    <p class="text-light opacity-75 mt-2">Ánh sáng phát quang mượt mà chuyển động theo từng cái di chuyển chuột của bạn trên màn hình.</p>
                 </div>
             </div>
-
-            <!-- Card 2 -->
             <div class="col-md-4">
-                <div class="tech-card p-4 h-100 d-flex flex-column justify-content-between">
-                    <div>
-                        <div class="text-success fs-1 mb-3"><i class="fa-solid fa-code"></i></div>
-                        <h4 class="fw-bold text-white mb-2">Frontend Interface</h4>
-                        <p class="text-secondary small mb-4">Giao diện tương tác hiện đại kết hợp giữa Bootstrap 5, JavaScript bất đồng bộ và CSS tùy biến nâng cao.</p>
-                    </div>
-                    <a href="https://github.com/bangkv22/subdomain" target="_blank" class="btn btn-cyber text-center w-100">
-                        Xem Source <i class="fa-solid fa-arrow-right ms-2"></i>
-                    </a>
+                <div class="neon-card p-4 h-100 text-center">
+                    <div class="fs-1 mb-3">✨</div>
+                    <h4 class="fw-bold" style="color: var(--neon-pink); text-shadow: 0 0 8px rgba(255,0,127,0.6);">Hạt Neon Bay Bổng</h4>
+                    <p class="text-light opacity-75 mt-2">Các hạt năng lượng lấp lánh bay lên liên tục tạo cảm giác không gian công nghệ sống động.</p>
                 </div>
             </div>
-
-            <!-- Card 3 -->
             <div class="col-md-4">
-                <div class="tech-card p-4 h-100 d-flex flex-column justify-content-between">
-                    <div>
-                        <div class="text-warning fs-1 mb-3"><i class="fa-solid fa-server"></i></div>
-                        <h4 class="fw-bold text-white mb-2">Git &amp; Deployment</h4>
-                        <p class="text-secondary small mb-4">Quản lý mã nguồn với Git/GitHub, tự động hóa quy trình CI/CD qua GitHub Actions lên môi trường Cloud.</p>
-                    </div>
-                    <a href="#projects" onclick="triggerAlert()" class="btn btn-cyber text-center w-100">
-                        Kiểm Tra Trạng Thái <i class="fa-solid fa-arrow-right ms-2"></i>
-                    </a>
+                <div class="neon-card p-4 h-100 text-center">
+                    <div class="fs-1 mb-3">⚡</div>
+                    <h4 class="fw-bold" style="color: #c084fc; text-shadow: 0 0 8px rgba(176,0,255,0.6);">Phong Cách Cyberpunk</h4>
+                    <p class="text-light opacity-75 mt-2">Tông màu tối kết hợp viền sáng rực rỡ mang lại vẻ đẹp chuyên nghiệp và ấn tượng mạnh mẽ.</p>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <!-- Footer -->
-    <footer class="text-center py-4 code-font">
-        <div class="container">
-            <p class="mb-1 text-info">&gt; Developed by Võ Khánh Băng // Subdomain Deployment 2026</p>
-            <small class="text-muted">All systems operational.</small>
-        </div>
-    </footer>
-
-    <!-- Interactive JS Script -->
+    <!-- JavaScript điều khiển hiệu ứng con trỏ chuột mượt mà -->
     <script>
-        function triggerAlert() {
-            alert("Hệ thống hoạt động bình thường! Tất cả các dịch vụ (GitHub Pages, Subdomain Routing, PHP/MySQL Environment) đều đã sẵn sàng.");
-        }
+        const cursorGlow = document.getElementById('cursorGlow');
+        window.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
     </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
