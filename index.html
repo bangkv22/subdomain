@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sự Kiện Công Nghệ Neon Cyberpunk</title>
+    <title>AQUAPRISM - Võ Khánh Băng</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #05050a;
-            --neon-pink: #ff007f;
-            --neon-blue: #00f3ff;
-            --neon-purple: #b000ff;
+            --bg-color: #030712;
+            --neon-cyan: #06b6d4;
+            --neon-pink: #ec4899;
+            --neon-purple: #8b5cf6;
         }
 
         body {
@@ -21,10 +21,9 @@
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
-            cursor: default;
         }
 
-        /* Vòng tròn hiệu ứng chạy theo con trỏ chuột (Neon Cursor Follower) */
+        /* Hiệu ứng ánh sáng chạy theo con trỏ chuột */
         .cursor-glow {
             position: fixed;
             top: 0;
@@ -32,29 +31,44 @@
             width: 350px;
             height: 350px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 243, 255, 0.15) 0%, rgba(255, 0, 127, 0.08) 50%, transparent 70%);
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(236, 72, 153, 0.06) 50%, transparent 70%);
             pointer-events: none;
             transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s;
             z-index: 9999;
             mix-blend-mode: screen;
         }
 
-        /* Các khối màu nền neon mờ ảo chuyển động */
+        /* Navbar phong cách Aquaprism */
+        .navbar-custom {
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+                .logo-badge {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text; /* Thêm dòng này để hết cảnh báo */
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        /* Các khối màu nền mờ ảo chuyển động */
         .blob {
             position: absolute;
             width: 450px;
             height: 450px;
-            background: linear-gradient(135deg, rgba(255, 0, 127, 0.25), rgba(176, 0, 255, 0.25));
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(139, 92, 246, 0.2));
             filter: blur(100px);
             border-radius: 50%;
             z-index: -2;
             animation: floatBlob 10s infinite alternate ease-in-out;
         }
         .blob-2 {
-            top: 40%;
-            right: 5%;
-            background: linear-gradient(135deg, rgba(0, 243, 255, 0.25), rgba(176, 0, 255, 0.25));
+            top: 50%;
+            right: 10%;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(6, 182, 212, 0.2));
             animation-duration: 14s;
         }
 
@@ -63,8 +77,8 @@
             100% { transform: translateY(-50px) scale(1.1); }
         }
 
-        /* Hiệu ứng hạt ánh sáng bay lơ lửng */
-        .floating-particles {
+        /* THAY ĐỔI HÌNH VÀ HIỆU ỨNG BAY BỔNG (Icon, Hình ảnh, Ký hiệu) */
+        .floating-elements {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -75,135 +89,139 @@
             pointer-events: none;
         }
 
-        .particle {
+        .floating-item {
             position: absolute;
             display: block;
-            width: 6px;
-            height: 6px;
-            background: var(--neon-blue);
-            box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            list-style: none;
+            font-size: 24px; /* Kích thước hình/icon bay */
             animation: flyUp 12s linear infinite;
             bottom: -50px;
-            border-radius: 50%;
+            opacity: 0.7;
         }
 
-        .particle:nth-child(1) { left: 10%; width: 8px; height: 8px; animation-duration: 10s; background: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink); }
-        .particle:nth-child(2) { left: 25%; width: 4px; height: 4px; animation-duration: 15s; animation-delay: 2s; }
-        .particle:nth-child(3) { left: 45%; width: 7px; height: 7px; animation-duration: 8s; animation-delay: 4s; background: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple); }
-        .particle:nth-child(4) { left: 65%; width: 5px; height: 5px; animation-duration: 13s; animation-delay: 1s; }
-        .particle:nth-child(5) { left: 85%; width: 9px; height: 9px; animation-duration: 11s; animation-delay: 3s; background: var(--neon-pink); box-shadow: 0 0 15px var(--neon-pink); }
+        /* Bạn có thể đổi các biểu tượng/emoji bên dưới thành hình khác tùy ý (VD: 💻, 🚀, 💎, ✨, 🌸, v.v.) */
+        .floating-item:nth-child(1) { left: 10%; animation-duration: 10s; font-size: 22px; }
+        .floating-item:nth-child(2) { left: 25%; animation-duration: 15s; animation-delay: 2s; font-size: 28px; }
+        .floating-item:nth-child(3) { left: 45%; animation-duration: 8s; animation-delay: 4s; font-size: 20px; }
+        .floating-item:nth-child(4) { left: 65%; animation-duration: 13s; animation-delay: 1s; font-size: 32px; }
+        .floating-item:nth-child(5) { left: 85%; animation-duration: 11s; animation-delay: 3s; font-size: 25px; }
 
         @keyframes flyUp {
             0% {
-                transform: translateY(0) scale(1);
-                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
             }
             100% {
-                transform: translateY(-900px) scale(0.5);
+                transform: translateY(-900px) rotate(360deg);
                 opacity: 0;
             }
         }
 
-        /* Tiêu đề hiệu ứng Neon sáng rực */
-        .hero-title {
+                .hero-title {
             font-weight: 900;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7),
-                         0 0 20px rgba(0, 243, 255, 0.5),
-                         0 0 40px rgba(0, 243, 255, 0.3);
+            background: linear-gradient(135deg, #ffffff 0%, #06b6d4 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            background-clip: text; /* Thêm dòng này vào đây */
+            -webkit-text-fill-color: transparent;
         }
-
-        /* Thẻ kính mờ viền Neon (Glassmorphism + Neon Border) */
-        .neon-card {
-            background: rgba(15, 15, 30, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(0, 243, 255, 0.3);
+        /* Khung code mẫu giống ảnh */
+        .code-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: 16px;
-            transition: all 0.4s ease;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .neon-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--neon-pink);
-            box-shadow: 0 0 25px rgba(255, 0, 127, 0.4), inset 0 0 15px rgba(255, 0, 127, 0.2);
-        }
-
-        /* Nút bấm hiệu ứng Neon phát sáng */
-        .btn-neon {
-            background: transparent;
-            border: 2px solid var(--neon-blue);
-            color: var(--neon-blue);
+        .btn-glow {
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            border: none;
+            color: white;
             font-weight: bold;
-            text-shadow: 0 0 8px rgba(0, 243, 255, 0.6);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3), inset 0 0 15px rgba(0, 243, 255, 0.1);
             transition: all 0.3s ease;
-            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
         }
 
-        .btn-neon:hover {
-            background: var(--neon-blue);
-            color: #000;
-            box-shadow: 0 0 30px var(--neon-blue), 0 0 60px var(--neon-blue);
+        .btn-glow:hover {
             transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.7);
+            color: white;
         }
     </style>
 </head>
 <body>
 
-    <!-- Đom đóm/vòng sáng chạy theo con trỏ chuột -->
+    <!-- Đom đóm ánh sáng chạy theo con trỏ chuột -->
     <div class="cursor-glow" id="cursorGlow"></div>
 
-    <!-- Các khối hiệu ứng màu nền -->
+    <!-- Thanh Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top px-4">
+        <div class="container-fluid">
+            <a class="navbar-brand logo-badge fs-4" href="#">💎 AQUAPRISM</a>
+            <div class="ms-auto d-none d-md-flex align-items-center gap-4">
+                <a href="#" class="text-white text-decoration-none opacity-75">Home</a>
+                <a href="#" class="text-white text-decoration-none opacity-75">About</a>
+                <a href="#" class="text-white text-decoration-none opacity-75">Skills</a>
+                <a href="#" class="text-white text-decoration-none opacity-75">Projects</a>
+                <a href="#" class="text-white text-decoration-none opacity-75">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Khối hiệu ứng màu nền -->
     <div class="blob top-0 start-0"></div>
     <div class="blob blob-2"></div>
 
-    <!-- Hiệu ứng hạt ánh sáng bay -->
-    <ul class="floating-particles">
-        <li class="particle"></li>
-        <li class="particle"></li>
-        <li class="particle"></li>
-        <li class="particle"></li>
-        <li class="particle"></li>
-    </ul>
-
-    <div class="container py-5 text-center mt-5">
-        <span class="badge mb-3 px-4 py-2 rounded-pill text-uppercase" style="background: rgba(255, 0, 127, 0.2); border: 1px solid var(--neon-pink); color: var(--neon-pink); box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);">✨ Giao Diện Neon Cyberpunk ✨</span>
-        <h1 class="hero-title display-3 mb-4">Hệ Thống Sự Kiện Công Nghệ</h1>
-        <p class="lead text-light opacity-75 mb-5 mx-auto" style="max-width: 600px;">
- di chuyển chuột để trải nghiệm hiệu ứng ánh sáng tương tác, kết hợp các hạt neon bay bổng và giao diện hiện đại cực chất.
-        </p>
-        <a href="#features" class="btn btn-neon btn-lg px-5 py-3">Khám Phá Ngay</a>
+    <!-- CÁC HÌNH/BIỂU TƯỢNG BAY BỔNG (Bạn có thể sửa đổi icon trực tiếp ở đây) -->
+    <div class="floating-elements">
+        <span class="floating-item">💻</span>
+        <span class="floating-item">🚀</span>
+        <span class="floating-item">✨</span>
+        <span class="floating-item">💎</span>
+        <span class="floating-item">🔥</span>
     </div>
 
-    <div id="features" class="container py-5 mt-4">
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="neon-card p-4 h-100 text-center">
-                    <div class="fs-1 mb-3">🖱️</div>
-                    <h4 class="text-info fw-bold" style="text-shadow: 0 0 8px rgba(0,243,255,0.6);">Hiệu Ứng Con Trỏ</h4>
-                    <p class="text-light opacity-75 mt-2">Ánh sáng phát quang mượt mà chuyển động theo từng cái di chuyển chuột của bạn trên màn hình.</p>
+    <!-- Nội dung chính Hero Section -->
+    <div class="container py-5 mt-5">
+        <div class="row align-items-center min-vh-75 py-5">
+            <div class="col-lg-7">
+                <span class="badge mb-3 px-3 py-2 rounded-pill" style="background: rgba(6, 182, 212, 0.2); border: 1px solid var(--neon-cyan); color: var(--neon-cyan);">
+                    ⚡ AQUAPRISM · CYBERPUNK UNDERWATER
+                </span>
+                <h1 class="hero-title display-3 mb-3">Hi, I'm <br>VO KHANH BANG</h1>
+                <p class="text-info fw-semibold mb-4 fs-5">IT Student · Web Developer · Creative Problem Solver</p>
+                <p class="text-light opacity-75 mb-4" style="max-width: 550px;">
+                    Sinh viên ngành Công nghệ Thông tin đam mê kiến trúc phần mềm, lập trình web hiện đại và thiết kế trải nghiệm người dùng tương tác.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="btn btn-glow px-4 py-3 rounded-pill">Khám phá Dự án ></a>
+                    <a href="#" class="btn btn-outline-light px-4 py-3 rounded-pill">Liên hệ công việc</a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="neon-card p-4 h-100 text-center">
-                    <div class="fs-1 mb-3">✨</div>
-                    <h4 class="fw-bold" style="color: var(--neon-pink); text-shadow: 0 0 8px rgba(255,0,127,0.6);">Hạt Neon Bay Bổng</h4>
-                    <p class="text-light opacity-75 mt-2">Các hạt năng lượng lấp lánh bay lên liên tục tạo cảm giác không gian công nghệ sống động.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="neon-card p-4 h-100 text-center">
-                    <div class="fs-1 mb-3">⚡</div>
-                    <h4 class="fw-bold" style="color: #c084fc; text-shadow: 0 0 8px rgba(176,0,255,0.6);">Phong Cách Cyberpunk</h4>
-                    <p class="text-light opacity-75 mt-2">Tông màu tối kết hợp viền sáng rực rỡ mang lại vẻ đẹp chuyên nghiệp và ấn tượng mạnh mẽ.</p>
+
+            <!-- Khung code trang trí bên phải -->
+            <div class="col-lg-5 mt-5 mt-lg-0">
+                <div class="code-card p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="badge bg-danger rounded-circle p-2 me-2"></span>
+                        <span class="badge bg-warning rounded-circle p-2 me-2"></span>
+                        <span class="badge bg-success rounded-circle p-2 me-2"></span>
+                        <small class="text-muted ms-auto">developer.config.ts</small>
+                    </div>
+                    <pre class="text-light m-0" style="font-family: monospace; font-size: 13px;">
+<code><span class="text-danger">const</span> developer = {
+  name: <span class="text-success">'VO KHANH BANG'</span>,
+  role: <span class="text-success">'IT Student & Web Dev'</span>,
+  mission: <span class="text-success">'Explore Ocean of Code'</span>,
+  techStack: [<span class="text-warning">'PHP'</span>, <span class="text-warning">'JavaScript'</span>, <span class="text-warning">'Bootstrap 5'</span>],
+  status: <span class="text-success">'Ready for Projects 🚀'</span>
+};</code></pre>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript điều khiển hiệu ứng con trỏ chuột mượt mà -->
+    <!-- JavaScript hiệu ứng con trỏ chuột -->
     <script>
         const cursorGlow = document.getElementById('cursorGlow');
         window.addEventListener('mousemove', (e) => {
